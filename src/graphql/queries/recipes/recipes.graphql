@@ -1,9 +1,14 @@
 type Query {
   recipes: [Recipe]!
+  recipe(input: RecipeInput!): Recipe!
+}
+
+input RecipeInput {
+  id: Int!
 }
 
 type Recipe {
-  id: ID!
+  id: Int!
   title: String!
   description: String!
 }

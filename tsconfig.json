@@ -10,10 +10,10 @@
     "types": ["node", "jest"],
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "." ,
+    "baseUrl": ".",
     "paths": {
       "@interfaces/*": ["./src/interfaces/*"],
-      "@constants/*": ["./src/constants/*"],
+      "@constants/*": ["./src/constants/*"]
     }
-  },
+  }
 }

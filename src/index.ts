@@ -1,3 +1,4 @@
+import prisma from '@constants/prisma'
 import { ApolloServer } from 'apollo-server-express'
 import { typeDefs, resolvers } from './merge-types-and-resolvers'
 import express from 'express'
@@ -8,7 +9,8 @@ const app = express()
 const startServer = async () => {
   const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: prisma
   })
   await server.start()
 
