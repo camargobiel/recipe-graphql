@@ -1,3 +1,12 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '@constants/prisma'
 
-const prisma = new PrismaClient()
+const Query = {
+  recipes: async () => {
+    const recipes = await prisma.recipes.findMany()
+    return recipes
+  }
+}
+
+export default {
+  Query
+}

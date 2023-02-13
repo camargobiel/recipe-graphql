@@ -1,4 +1,4 @@
-import { Recipe } from './../../src/interfaces/recipe.interface'
+import { Recipe } from '@interfaces/recipe.interface'
 import seed from './_index'
 
 const recipeSeed = async () => {

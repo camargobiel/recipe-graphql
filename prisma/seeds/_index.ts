@@ -1,4 +1,4 @@
-import { Recipe } from './../../src/interfaces/recipe.interface'
+import { Recipe } from '@interfaces/recipe.interface'
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 

@@ -1,5 +1,5 @@
 type Query {
-  recipes: Recipe[]!
+  recipes: [Recipe]!
 }
 
 type Recipe {

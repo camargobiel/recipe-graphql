@@ -3,20 +3,28 @@ import app from '../../src/index'
 
 describe('Recipes', () => {
   describe('Success', () => {
-    it('Given studentId should return valid grade', async () => {
+    it('Query for all recipes', async () => {
       const response = await request(app)
         .post('/graphql')
         .send({
-          query: `query {
-            hello
-          }`,
-          variables: {
-            studentId: 1
-          }
+          query: `query Recipes {
+            recipes {
+              id
+              description
+              title
+            }
+          }`
         })
         .set('Accept', 'application/json')
 
-      expect(true).toBe(true)
+      expect(response.body.errors).toBe(undefined)
+      expect(response.body.data.recipes).toStrictEqual([
+        {
+          id: '5',
+          description: 'this is a recipe',
+          title: 'first recipe'
+        }
+      ])
     })
   })
 })
