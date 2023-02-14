@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r tsconfig-paths/register ./src/index.ts",
-    "test": "jest",
+    "test": "npm run run-db && jest --verbose",
     "migrate": "npx prisma db push",
-    "seed": "ts-node ./prisma/seed.ts"
+    "seed": "ts-node ./prisma/seed.ts",
+    "run-db": "npx prisma migrate reset --force && npm run migrate && npm run seed",
+    "kill": "fuser -n tcp -k 4000"
   },
   "keywords": [],
   "author": "",

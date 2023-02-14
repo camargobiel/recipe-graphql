@@ -1,0 +1,8 @@
+type Mutation {
+  createRecipe(input: RecipeCreateInput!): Recipe!
+}
+
+input RecipeCreateInput {
+  title: String!
+  description: String!
+}
