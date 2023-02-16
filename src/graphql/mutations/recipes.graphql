@@ -1,8 +1,15 @@
 type Mutation {
-  createRecipe(input: RecipeCreateInput!): Recipe!
+  createRecipe(input: CreateRecipeInput!): Recipe!
+  updateRecipe(input: UpdateRecipeInput!): Recipe!
 }
 
-input RecipeCreateInput {
+input CreateRecipeInput {
   title: String!
   description: String!
+}
+
+input UpdateRecipeInput {
+  id: Int!
+  title: String
+  description: String
 }
