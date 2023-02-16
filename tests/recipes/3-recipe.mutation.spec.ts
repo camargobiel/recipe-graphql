@@ -1,5 +1,5 @@
 import request from 'supertest'
-import app from '../../src/index'
+import app from '@src/index'
 
 describe('Recipes - Mutations', () => {
   describe('Success', () => {
@@ -33,6 +33,31 @@ describe('Recipes - Mutations', () => {
     })
   })
 
-  /*  describe('Errors', () => {
-  }) */
+  describe('Errors', () => {
+    it('Given the incorrect input should throw a error', async () => {
+      const response = await request(app)
+        .post('/graphql')
+        .send({
+          query: `#graphql
+          mutation Mutation($input: RecipeCreateInput!) {
+            createRecipe(input: $input) {
+              id
+              description
+              title
+            }
+          }`,
+          variables: {
+            input: {
+              title: '',
+              description: 'this recipe is created by a test'
+            }
+          }
+        })
+        .set('Accept', 'application/json')
+
+      expect(response.body.errors[0].extensions.code).toBe('INVALID_INPUT')
+      expect(response.body.errors[0].message).toBe('Invalid inputs for fields: title')
+      expect(response.body?.data?.createRecipe).toBe(undefined)
+    })
+  })
 })
