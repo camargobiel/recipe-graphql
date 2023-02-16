@@ -6,6 +6,10 @@ const recipeSeed = async () => {
     {
       title: 'first recipe',
       description: 'this is a recipe'
+    },
+    {
+      title: 'recipe to update',
+      description: 'this is a recipe to update'
     }
   ]
 
