@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
-import Validators from '../../validators/validators'
+import Validators from '../../../validators/validators'
 import { ApolloError } from 'apollo-server-express'
 const validator = new Validators()
 
 const Mutation = {
-  createRecipe: async (_, { input }, prisma: PrismaClient) => {
+  createRecipe: async (_, { input }, { prisma }: { prisma: PrismaClient }) => {
     const invalidInputs = validator.validateManyInputs(input)
     if (invalidInputs?.length) {
       throw new ApolloError(`Invalid inputs for fields: ${invalidInputs}`, 'INVALID_INPUT')
@@ -19,7 +19,7 @@ const Mutation = {
     return recipe
   },
 
-  updateRecipe: async (_, { input }, prisma: PrismaClient) => {
+  updateRecipe: async (_, { input }, { prisma }: { prisma: PrismaClient }) => {
     const invalidInputs = validator.validateManyInputs(input)
     if (invalidInputs?.length) {
       throw new ApolloError(`Invalid inputs for fields: ${invalidInputs}`, 'INVALID_INPUT')
@@ -38,7 +38,7 @@ const Mutation = {
     return updatedRecipe
   },
 
-  deleteRecipe: async (_, { input }, prisma: PrismaClient) => {
+  deleteRecipe: async (_, { input }, { prisma }: { prisma: PrismaClient }) => {
     const isValidInput = validator.validateInput(input?.id)
     if (!isValidInput) {
       throw new ApolloError('Invalid input for recipe id', 'INVALID_INPUT')

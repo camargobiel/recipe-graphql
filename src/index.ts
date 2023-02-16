@@ -1,6 +1,6 @@
 import prisma from '@constants/prisma'
 import { ApolloServer } from 'apollo-server-express'
-import { typeDefs, resolvers } from './merge-types-and-resolvers'
+import { typeDefs, resolvers } from './utils/merge-types-and-resolvers'
 import express from 'express'
 import 'dotenv/config'
 
@@ -10,7 +10,13 @@ const startServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: prisma
+    context: {
+      prisma,
+      user: async ({ req }) => {
+        const user = req?.headers?.user
+        return user
+      }
+    }
   })
   await server.start()
 
