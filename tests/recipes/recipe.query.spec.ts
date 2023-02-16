@@ -1,7 +1,7 @@
 import request from 'supertest'
 import app from '@src/index'
 
-describe('Recipe - Queries', () => {
+describe('Recipe', () => {
   describe('Success', () => {
     it('Query for one recipe', async () => {
       const response = await request(app)

@@ -36,6 +36,17 @@ const Mutation = {
       }
     })
     return updatedRecipe
+  },
+
+  deleteRecipe: async (_, { input }, prisma: PrismaClient) => {
+    const isValidInput = validator.validateInput(input?.id)
+    if (!isValidInput) {
+      throw new ApolloError('Invalid input for recipe id', 'INVALID_INPUT')
+    }
+    await prisma.recipes.findUniqueOrThrow({ where: { id: input.id } })
+
+    const deletedRecipe = await prisma.recipes.delete({ where: { id: input.id } })
+    return deletedRecipe
   }
 }
 

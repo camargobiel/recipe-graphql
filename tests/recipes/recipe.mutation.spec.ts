@@ -1,7 +1,7 @@
 import request from 'supertest'
 import app from '@src/index'
 
-describe('Recipes - Mutations', () => {
+describe('Recipes', () => {
   describe('createRecipe', () => {
     describe('Success', () => {
       it('Given the correct input should create a recipe', async () => {
@@ -28,7 +28,7 @@ describe('Recipes - Mutations', () => {
         expect(response.body.errors).toBe(undefined)
         expect(response.body.data.createRecipe).toStrictEqual({
           description: 'this recipe is created by a test',
-          id: 3,
+          id: 4,
           title: 'test recipe'
         })
       })
@@ -180,6 +180,65 @@ describe('Recipes - Mutations', () => {
         expect(response.body.errors[0].extensions.code).toBe('INTERNAL_SERVER_ERROR')
         expect(response.body.errors[0].message).toBe('No recipes found')
         expect(response.body?.data?.updateRecipe).toBe(undefined)
+      })
+    })
+  })
+
+  describe('deleteRecipe', () => {
+    describe('Success', () => {
+      it('Given the correct input should delete a recipe', async () => {
+        const response = await request(app)
+          .post('/graphql')
+          .send({
+            query: `#graphql
+            mutation Mutation($input: DeleteRecipeInput!) {
+              deleteRecipe(input: $input) {
+                id
+                description
+                title
+              }
+            }`,
+            variables: {
+              input: {
+                id: 3
+              }
+            }
+          })
+          .set('Accept', 'application/json')
+
+        expect(response.body.errors).toBe(undefined)
+        expect(response.body.data.deleteRecipe).toStrictEqual({
+          id: 3,
+          title: 'recipe to delete',
+          description: 'this is a recipe to delete'
+        })
+      })
+    })
+
+    describe('Errors', () => {
+      it('Given the incorrect input should throw error', async () => {
+        const response = await request(app)
+          .post('/graphql')
+          .send({
+            query: `#graphql
+            mutation Mutation($input: DeleteRecipeInput!) {
+              deleteRecipe(input: $input) {
+                id
+                description
+                title
+              }
+            }`,
+            variables: {
+              input: {
+                id: 99
+              }
+            }
+          })
+          .set('Accept', 'application/json')
+
+        expect(response.body.errors[0].extensions.code).toBe('INTERNAL_SERVER_ERROR')
+        expect(response.body.errors[0].message).toBe('No recipes found')
+        expect(response.body?.data?.deleteRecipe).toBe(undefined)
       })
     })
   })
