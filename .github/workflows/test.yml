@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     env:
-      PORT: 4000
+      PORT: 3000
       DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432'
     runs-on: ubuntu-latest
 

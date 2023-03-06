@@ -9,7 +9,7 @@
     "run-db": "npx prisma migrate reset --force && npm run migrate && npm run seed",
     "migrate": "npx prisma db push",
     "seed": "ts-node ./prisma/seed.ts",
-    "kill": "fuser -n tcp -k 4000"
+    "kill": "fuser -n tcp -k 3000"
   },
   "keywords": [],
   "author": "",

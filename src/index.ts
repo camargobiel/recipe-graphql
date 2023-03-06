@@ -24,7 +24,7 @@ const startServer = async () => {
 
   if (process.env.NODE_ENV === 'test') { return }
 
-  const port = process.env.PORT ?? 4000
+  const port = process.env.PORT ?? 3000
   app.listen(port, () => {
     console.log(`🚀 Server ready at localhost:${port}/graphql`)
   })
